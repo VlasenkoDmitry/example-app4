@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
     public function index()
     {
+//        $articles = Article::join('categories','categories.id', '=', 'articles.category_id')->select( 'articles.id','articles.title','articles.content','articles.image' ,'articles.likes', 'categories.title as categories_title')->get();
         $articles = Article::all();
         return view('articles', compact('articles'));
     }
 
+    //firstOrCreate
+    //UpdateOrCreate
     public function create()
     {
         $article = new Article();
@@ -58,6 +62,12 @@ class ArticleController extends Controller
         $article->update($data);
         return redirect()->route('articles.show', $id);
     }
+
+    //Восстановление
+//        $article= Article::withTrashed()->findOrFail($id);
+//        if ($article) {
+//            $article->restore();
+//        }
     public function destroy($id)
     {
         $article = Article::query()->findOrFail($id);
