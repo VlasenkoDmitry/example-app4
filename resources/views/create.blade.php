@@ -30,8 +30,8 @@
                     <input type="text" name="image" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="likes" class="form-label">Likes</label>
-                    <input type="number" name="likes" class="form-control">
+                    <label for="likesUsers" class="form-label">Likes</label>
+                    <input type="number" name="likesUsers" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>

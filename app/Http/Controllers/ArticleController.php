@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -29,7 +30,7 @@ class ArticleController extends Controller
             'title' => 'required|unique:articles',
             'content' => 'required|min:20',
             'image' => '',
-            'likes' => ''
+            'likesUsers' => ''
         ]);
 
         $article = new Article();
@@ -40,8 +41,12 @@ class ArticleController extends Controller
 
     public function show($id)
     {
-        $article = Article::query()->findOrFail($id);
-        return view('show', compact('article'));
+//        $article = Article::query()->findOrFail($id);
+//        dump($article->tags);
+        $tag = Tag::query()->findOrFail($id);
+        dump($tag->articles);
+
+//        return view('show', compact('article'));
     }
 
     public function edit($id)
@@ -57,7 +62,7 @@ class ArticleController extends Controller
             'title' => '',
             'content' => 'required|min:20',
             'image' => '',
-            'likes' => ''
+            'likesUsers' => ''
         ]);
         $article->update($data);
         return redirect()->route('articles.show', $id);

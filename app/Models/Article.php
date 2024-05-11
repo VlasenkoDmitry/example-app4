@@ -11,11 +11,17 @@ class Article extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['title', 'content', 'image', 'likes', 'isPublished'];
+    protected $fillable = ['title', 'content', 'image', 'likesUsers', 'isPublished'];
 
     public function category()
     {
         $category = $this->belongsTo(ArticleController::class, "id", "category_id");
         return $category;
+    }
+
+    public function tags()
+    {
+        $tags = $this->belongsToMany(Tag::class, 'article_tags', 'article_id', 'tag_id');
+        return $tags;
     }
 }
