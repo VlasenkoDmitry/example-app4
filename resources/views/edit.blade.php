@@ -3,13 +3,19 @@
 @section('content')
     <div class="container">
         <div class="row">
+{{--            @if ($errors->any())--}}
+{{--                <div>--}}
+{{--                    <ul>--}}
+{{--                        @foreach ($errors->all() as $error)--}}
+{{--                            <li>{{ $error }}</li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+
             @if ($errors->any())
-                <div>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div class="alert alert-danger" role="alert">
+                    {{'The article has not been edited'}}
                 </div>
             @endif
 

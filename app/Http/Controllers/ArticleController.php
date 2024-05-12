@@ -31,13 +31,14 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'title' => 'required|unique:articles',
+            'title' => 'required|min:4',
             'content' => 'required|min:20',
             'image' => 'required|min:4',
             'likesUsers' => '',
             'category_id' => '',
             'tag_id' => '',
         ]);
+
         $tags = $data['tag_id'];
         unset($data['tag_id']);
 
@@ -49,7 +50,7 @@ class ArticleController extends Controller
         $article = Article::create($data);
         $article->tags()->attach($tags);
 
-        return redirect()->route('articles.index');
+        return redirect()->route('articles.index')->with('success','Item created successfully!');
 //        dd($data);
     }
 
@@ -77,7 +78,7 @@ class ArticleController extends Controller
     {
         $article = Article::query()->findOrFail($id);
         $data = $this->validate($request, [
-            'title' => 'required|unique:articles',
+            'title' => 'required|min:4',
             'content' => 'required|min:20',
             'image' => 'required|min:4',
             'likesUsers' => '',

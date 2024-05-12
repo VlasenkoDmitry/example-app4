@@ -4,13 +4,19 @@
     <div class="container">
         <div class="row">
 
+{{--            @if ($errors->any())--}}
+{{--                <div>--}}
+{{--                    <ul>--}}
+{{--                        @foreach ($errors->all() as $error)--}}
+{{--                            <li>{{ $error }}</li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+
             @if ($errors->any())
-                <div>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div class="alert alert-danger" role="alert">
+                    {{'Аrticle not created '}}
                 </div>
             @endif
 
@@ -19,7 +25,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input value="{{old('title')}}" type="text" name="title" class="form-control" id="title" placeholder="title">+
+                    <input value="{{old('title')}}" type="text" name="title" class="form-control" id="title" placeholder="title">
                     @error('title')
                     <p class="text-danger">{{$message}}</p>
                     @enderror
