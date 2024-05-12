@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleTag;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -21,7 +22,10 @@ class ArticleController extends Controller
     public function create()
     {
         $article = new Article();
-        return view('create', compact('article'));
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('create', compact('article', 'categories', 'tags'));
     }
 
     public function store(Request $request)
@@ -30,29 +34,43 @@ class ArticleController extends Controller
             'title' => 'required|unique:articles',
             'content' => 'required|min:20',
             'image' => '',
-            'likesUsers' => ''
+            'likesUsers' => '',
+            'category_id' => '',
+            'tag_id' => '',
         ]);
+        $tags = $data['tag_id'];
+        unset($data['tag_id']);
 
-        $article = new Article();
-        $article->fill($data);
-        $article->save();
+//          Альтернатива с большей управляемостью
+//        $article = new Article();
+//        $article->fill($data);
+//        $article->save();
+
+        $article = Article::create($data);
+        $article->tags()->attach($tags);
+
         return redirect()->route('articles.index');
+//        dd($data);
     }
 
     public function show($id)
     {
-//        $article = Article::query()->findOrFail($id);
+        $article = Article::query()->findOrFail($id);
 //        dump($article->tags);
-        $tag = Tag::query()->findOrFail($id);
-        dump($tag->articles);
+//        $tag = Tag::query()->findOrFail($id);
+//        dump($tag->articles);
 
-//        return view('show', compact('article'));
+        return view('show', compact('article'));
     }
 
     public function edit($id)
     {
         $article = Article::query()->findOrFail($id);
-        return view('edit', compact('article'));
+        $categories = Category::all();
+        $allTags = Tag::all();
+        $articleTags = $article->tags;
+        return view('edit', compact('article', 'categories', 'allTags', 'articleTags'));
+
     }
 
     public function update(Request $request, $id)
@@ -62,10 +80,28 @@ class ArticleController extends Controller
             'title' => '',
             'content' => 'required|min:20',
             'image' => '',
-            'likesUsers' => ''
+            'likesUsers' => '',
+            'category_id' => '',
+            'tag_id' => '',
         ]);
+
+        $tags = $data['tag_id'];
+        unset($data['tag_id']);
+
+//        альтернативное обновление например для части данных
+//        $article->title = $data['title'];
+//        $article->content = $data['content'];
+//        $article->image = $data['image'];
+//        $article->likesUsers = $data['likesUsers'];
+//        $article->category_id = $data['category_id'];
+//        $article->save();
+
         $article->update($data);
-        return redirect()->route('articles.show', $id);
+        $article->tags()->sync($tags);
+
+
+
+        return redirect()->route('articles.index', $id);
     }
 
     //Восстановление

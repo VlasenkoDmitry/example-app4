@@ -33,6 +33,23 @@
                     <label for="likesUsers" class="form-label">Likes</label>
                     <input type="number" name="likesUsers" class="form-control">
                 </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-control" id="category" name="category_id">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="tag" class="form-label">Tag</label>
+                    <select class="form-select" id="tag" name="tag_id[]" multiple >
+                        @foreach($tags as $tag)
+                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
 
