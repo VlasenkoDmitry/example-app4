@@ -20,19 +20,35 @@
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" class="form-control" id="title" placeholder="title" value="{{$article->title}}">
+                    @error('title')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="content" class="form-label">Content</label>
                     <textarea type="text" name="content" class="form-control">{{$article->content}}</textarea>
+                    @error('content')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="text" name="image" class="form-control" value="{{$article->image}}">
+                    @error('image')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="likes" class="form-label">Likes</label>
                     <input type="number" name="likes" class="form-control" value="{{$article->likesUsers}}">
+                    @error('likesUsers')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="category" class="form-label">Category</label>
                     <select class="form-control" id="category" name="category_id">
@@ -43,6 +59,7 @@
                         @endforeach
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="tag" class="form-label">Tag</label>
                     <select class="form-select" id="tag" name="tag_id[]" multiple >

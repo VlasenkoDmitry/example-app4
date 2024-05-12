@@ -33,7 +33,7 @@ class ArticleController extends Controller
         $data = $this->validate($request, [
             'title' => 'required|unique:articles',
             'content' => 'required|min:20',
-            'image' => '',
+            'image' => 'required|min:4',
             'likesUsers' => '',
             'category_id' => '',
             'tag_id' => '',
@@ -77,9 +77,9 @@ class ArticleController extends Controller
     {
         $article = Article::query()->findOrFail($id);
         $data = $this->validate($request, [
-            'title' => '',
+            'title' => 'required|unique:articles',
             'content' => 'required|min:20',
-            'image' => '',
+            'image' => 'required|min:4',
             'likesUsers' => '',
             'category_id' => '',
             'tag_id' => '',

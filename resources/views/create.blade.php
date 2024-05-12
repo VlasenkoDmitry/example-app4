@@ -19,20 +19,36 @@
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="title">
+                    <input value="{{old('title')}}" type="text" name="title" class="form-control" id="title" placeholder="title">+
+                    @error('title')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="content" class="form-label">Content</label>
-                    <textarea type="text" name="content" class="form-control"></textarea>
+                    <textarea type="text" name="content" class="form-control">{{old('content')}}</textarea>
+                    @error('content')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <input type="text" name="image" class="form-control">
+                    <input value ="{{old('image')}}" type="text" name="image" class="form-control">
+                    @error('image')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="likesUsers" class="form-label">Likes</label>
-                    <input type="number" name="likesUsers" class="form-control">
+                    <input value ="{{old('likesUsers')}}" type="number" name="likesUsers" class="form-control">
+                    @error('likesUsers')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="category" class="form-label">Category</label>
                     <select class="form-control" id="category" name="category_id">
@@ -41,9 +57,10 @@
                         @endforeach
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="tag" class="form-label">Tag</label>
-                    <select class="form-select" id="tag" name="tag_id[]" multiple >
+                    <select  class="form-select" id="tag" name="tag_id[]" multiple >
                         @foreach($tags as $tag)
                             <option value="{{$tag->id}}">{{$tag->name}}</option>
                         @endforeach
