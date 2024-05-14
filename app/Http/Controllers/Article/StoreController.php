@@ -7,24 +7,12 @@ use App\Http\Requests\Article\StoreRequest;
 use App\Models\Article;
 
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
     public function __invoke(StoreRequest $request)
     {
         $data = $this->validated();
-
-        $tags = $data['tag_id'];
-        unset($data['tag_id']);
-
-//          Альтернатива с большей управляемостью
-//        $article = new Article();
-//        $article->fill($data);
-//        $article->save();
-
-        $article = Article::create($data);
-        $article->tags()->attach($tags);
-
+        $this->service->store($data);
         return redirect()->route('articles.index')->with('success','Item created successfully!');
-//        dd($data);
     }
 }
