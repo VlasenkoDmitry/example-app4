@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function __invoke()
     {
         //        $articles = Article::join('categories','categories.id', '=', 'articles.category_id')->select( 'articles.id','articles.title','articles.content','articles.image' ,'articles.likes', 'categories.title as categories_title')->get();
-        $articles = Article::all();
+        $articles = Article::paginate(10);
         return view('articles', compact('articles'));
     }
 }
