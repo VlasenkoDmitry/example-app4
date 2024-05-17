@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Controllers\ArticleController;
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Article extends Model
 {
     use HasFactory;
+    use Filterable;
     use SoftDeletes;
     protected $fillable = ['title', 'content', 'image', 'likesUsers', 'isPublished', 'category_id'];
 
